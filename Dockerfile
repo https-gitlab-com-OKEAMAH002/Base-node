@@ -1,4 +1,4 @@
-FROM golang:1.21 as op
+FROM golang:1.24.0 as op
 
 WORKDIR /app
 
@@ -14,7 +14,7 @@ RUN git clone $REPO --branch op-node/$VERSION --single-branch . && \
 RUN cd op-node && \
     make VERSION=$VERSION op-node
 
-FROM golang:1.21 as geth
+FROM golang:1.24.0 as geth
 
 WORKDIR /app
 
@@ -30,7 +30,7 @@ RUN git clone $REPO --branch $VERSION --single-branch . && \
 
 RUN go run build/ci.go install -static ./cmd/geth
 
-FROM golang:1.21
+FROM golang:1.24.0
 
 RUN apt-get update && \
     apt-get install -y jq curl supervisor && \
